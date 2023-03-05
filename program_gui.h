@@ -22,7 +22,7 @@ class ProgramGui {
 	
 	private: 
 	
-	int borderWidth;
+	static int borderWidth;
 	
 	int calculateColumnsNo() ;
 	

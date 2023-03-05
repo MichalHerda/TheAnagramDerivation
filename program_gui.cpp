@@ -4,16 +4,13 @@
 
 #include "program_gui.h"
 
-//using namespace std;
+using namespace std;
 
 //------------------------------------------------------------------------------------------------------------------------------------
 	
+int ProgramGui::borderWidth = 3;
 
-	
-
-int borderWidth = 3;
-
-int calculateColumnsNo() {
+int ProgramGui::calculateColumnsNo() {
 	
         winsize w;
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -21,7 +18,7 @@ int calculateColumnsNo() {
         return columns;
 }
 
-int calculateRowsNo() {
+int ProgramGui::calculateRowsNo() {
 	
         winsize w;
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);	   
@@ -29,50 +26,50 @@ int calculateRowsNo() {
         return rows;
 }
 
-void createBorderFrame() {
+void ProgramGui::createBorderFrame() {
 
-	for (int i = 0; i < calculateColumnsNo(); i++) {
+	for (int i = 0; i < ProgramGui::calculateColumnsNo(); i++) {
 		cout << "*";
 	}				
 }
 	
-void createEmptyLine() {
+void ProgramGui::createEmptyLine() {
 	
-	createLeftOrRightBorder();
-	for (int i = 0; i < calculateColumnsNo() - (borderWidth * 2) ; i++) {
+	ProgramGui::createLeftOrRightBorder();
+	for (int i = 0; i < ProgramGui::calculateColumnsNo() - (ProgramGui::borderWidth * 2) ; i++) {
 		cout << " ";
 	}
-	createLeftOrRightBorder();				
+	ProgramGui::createLeftOrRightBorder();				
 }
 
-void createLeftOrRightBorder() {
-	for (int i = 0; i < borderWidth; i++) {
+void ProgramGui::createLeftOrRightBorder() {
+	for (int i = 0; i < ProgramGui::borderWidth; i++) {
 		cout << "*";
 	}
 }	
 
-ProgramGui(vector<string> guiText) {
+ProgramGui::ProgramGui(vector<string> guiText) {
 	
 	cout << "\n";
-	createBorderFrame();
-	createEmptyLine();	
+	ProgramGui::createBorderFrame();
+	ProgramGui::createEmptyLine();	
 	
 	for (int i = 0; i < guiText.size(); i ++) {
-		int distanceFromFrame = ( calculateColumnsNo() - ( borderWidth * 2 ) - guiText[i].length() ) / 2;
-		createLeftOrRightBorder();
+		int distanceFromFrame = ( ProgramGui::calculateColumnsNo() - ( ProgramGui::borderWidth * 2 ) - guiText[i].length() ) / 2;
+		ProgramGui::createLeftOrRightBorder();
 		for (int i = 0; i < distanceFromFrame; i++) {
 			cout << " ";				
 		}
-		if( ( (distanceFromFrame * 2) + ( borderWidth * 2 ) + ( guiText[i].length() ) ) 
-											!= calculateColumnsNo() ) cout << " ";
+		if( ( (distanceFromFrame * 2) + ( ProgramGui::borderWidth * 2 ) + ( guiText[i].length() ) ) 
+											!= ProgramGui::calculateColumnsNo() ) cout << " ";
 		cout << guiText [i];
 		for (int i = 0; i < distanceFromFrame; i++) {
 			cout << " ";
 		}
-		createLeftOrRightBorder();			
-		createEmptyLine();			
+		ProgramGui::createLeftOrRightBorder();			
+		ProgramGui::createEmptyLine();			
 	}		
-	createBorderFrame();		
+	ProgramGui::createBorderFrame();		
 	cout << "\n";												
 }
 

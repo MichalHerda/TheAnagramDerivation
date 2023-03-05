@@ -6,7 +6,7 @@
 #include <unistd.h>									// for calculating screen width/height
 #include <thread>									// to enable co-existing cout and ncurses								
 #include <fstream>									// read source file
-#include "program_gui.h"								// my class for creating simple GUI with frames
+#include "program_gui.h"								// class for creating simple GUI with frames
 
 using namespace std;
 
