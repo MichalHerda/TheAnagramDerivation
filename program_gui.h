@@ -17,7 +17,9 @@ class ProgramGui {
 
 	public:
 	
-	ProgramGui(vector<string> guiText) ;								
+	//ProgramGui(char guiSign, vector<string> guiText) ;								
+	
+	ProgramGui(char guiSign, bool isEmptyLineBehind, vector<string> guiText);
 	
 	
 	private: 
@@ -28,11 +30,11 @@ class ProgramGui {
 	
 	int calculateRowsNo() ;
 	
-	void createBorderFrame() ;
+	void createBorderFrame(char guiSign) ;
 		
-	void createEmptyLine() ;
+	void createEmptyLine(char guiSign) ;
 	
-	void createLeftOrRightBorder() ;
+	void createLeftOrRightBorder(char guiSign) ;
 	
 };
 #endif // PROGRAM_GUI_H

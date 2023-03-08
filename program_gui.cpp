@@ -26,37 +26,37 @@ int ProgramGui::calculateRowsNo() {
         return rows;
 }
 
-void ProgramGui::createBorderFrame() {
+void ProgramGui::createBorderFrame(char guiSign) {
 
 	for (int i = 0; i < ProgramGui::calculateColumnsNo(); i++) {
-		cout << "*";
+		cout << guiSign;
 	}				
 }
 	
-void ProgramGui::createEmptyLine() {
+void ProgramGui::createEmptyLine(char guiSign) {
 	
-	ProgramGui::createLeftOrRightBorder();
+	ProgramGui::createLeftOrRightBorder(guiSign);
 	for (int i = 0; i < ProgramGui::calculateColumnsNo() - (ProgramGui::borderWidth * 2) ; i++) {
 		cout << " ";
 	}
-	ProgramGui::createLeftOrRightBorder();				
+	ProgramGui::createLeftOrRightBorder(guiSign);				
 }
 
-void ProgramGui::createLeftOrRightBorder() {
+void ProgramGui::createLeftOrRightBorder(char guiSign) {
 	for (int i = 0; i < ProgramGui::borderWidth; i++) {
-		cout << "*";
+		cout << guiSign;
 	}
 }	
-
-ProgramGui::ProgramGui(vector<string> guiText) {
+/*
+ProgramGui::ProgramGui(char guiSign, vector<string> guiText) {
 	
 	cout << "\n";
-	ProgramGui::createBorderFrame();
-	ProgramGui::createEmptyLine();	
+	ProgramGui::createBorderFrame(guiSign);
+	ProgramGui::createEmptyLine(guiSign);	
 	
 	for (int i = 0; i < guiText.size(); i ++) {
 		int distanceFromFrame = ( ProgramGui::calculateColumnsNo() - ( ProgramGui::borderWidth * 2 ) - guiText[i].length() ) / 2;
-		ProgramGui::createLeftOrRightBorder();
+		ProgramGui::createLeftOrRightBorder(guiSign);
 		for (int i = 0; i < distanceFromFrame; i++) {
 			cout << " ";				
 		}
@@ -66,11 +66,36 @@ ProgramGui::ProgramGui(vector<string> guiText) {
 		for (int i = 0; i < distanceFromFrame; i++) {
 			cout << " ";
 		}
-		ProgramGui::createLeftOrRightBorder();			
-		ProgramGui::createEmptyLine();			
+		ProgramGui::createLeftOrRightBorder(guiSign);			
+		ProgramGui::createEmptyLine(guiSign);			
 	}		
-	ProgramGui::createBorderFrame();		
+	ProgramGui::createBorderFrame(guiSign);		
 	cout << "\n";												
+}
+*/
+ProgramGui::ProgramGui ( char guiSign, bool isEmptyLineBehind, vector<string> guiText ) {
+	cout << "\n";
+	ProgramGui::createBorderFrame(guiSign);
+	ProgramGui::createEmptyLine(guiSign);	
+	
+	for (int i = 0; i < guiText.size(); i ++) {
+		int distanceFromFrame = ( ProgramGui::calculateColumnsNo() - ( ProgramGui::borderWidth * 2 ) - guiText[i].length() ) / 2;
+		ProgramGui::createLeftOrRightBorder(guiSign);
+		for (int i = 0; i < distanceFromFrame; i++) {
+			cout << " ";				
+		}
+		if( ( (distanceFromFrame * 2) + ( ProgramGui::borderWidth * 2 ) + ( guiText[i].length() ) ) 
+											!= ProgramGui::calculateColumnsNo() ) cout << " ";
+		cout << guiText [i];
+		for (int i = 0; i < distanceFromFrame; i++) {
+			cout << " ";
+		}
+		ProgramGui::createLeftOrRightBorder(guiSign);			
+		if(isEmptyLineBehind)ProgramGui::createEmptyLine(guiSign);			
+	}	
+	ProgramGui::createEmptyLine(guiSign);		
+	ProgramGui::createBorderFrame(guiSign);		
+	cout << "\n";	
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------
