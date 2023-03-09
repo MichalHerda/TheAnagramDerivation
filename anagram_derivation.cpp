@@ -7,35 +7,60 @@
 #include <thread>									// to enable co-existing cout and ncurses								
 #include <fstream>									// read source file
 #include <filesystem>
-//#include <vector>
-//#include <string>
+#include <vector>
+#include <string>
 #include "program_gui.h"								// class for creating simple GUI with frames
-
 
 using namespace std;
 namespace fs = std::filesystem;
 
-void externalDictionary() {
+void externalDictionary(fs::path pathToShow) {
 
 	clear();
 	refresh();
-	vector<string>directoryNames;							// directoryNames is for reading purposes
-	vector<string>directoryNamesNumbered = {"SELECT DIRECTORY: "," "};		// dnNumbered is for displaying purposes
+	vector<string>directoryNames;								// directoryNames is for reading purposes
+	vector<string>directoryNamesNumbered = {"SELECT DIRECTORY NUMBER AND PRESS 'ENTER': "," "};		
+												// dnNumbered is for displaying purposes
 	int directoryNo = 0;
-	fs::path pathToShow("/");
+	int navigateUp = 0;
+	int exitProgram = 0;
 		
 	for (const auto& entry : fs::directory_iterator(pathToShow)) {
         		
-		if (entry.is_directory()) {
+		if (entry.is_directory() || fs::path(entry).extension() == ".txt") {
 		    directoryNo ++;
 	            directoryNamesNumbered.push_back(to_string(directoryNo) + ". " + entry.path().filename().string());
 	            directoryNames.push_back(entry.path().filename().string());
 		}
     	}
-    		
+    	
+    	navigateUp  = directoryNo + 1;
+    	exitProgram = directoryNo + 2;
+    	directoryNamesNumbered.push_back(" ");
+    	directoryNamesNumbered.push_back(to_string(navigateUp) + ". NAVIGATE UP");
+    	directoryNamesNumbered.push_back(to_string(exitProgram) + ". EXIT PROGRAM");
+    	
+    	int selectPath;	
 	ProgramGui ('#',false,{directoryNamesNumbered});
-    		
-	sleep(10);
+	scanf("%d", &selectPath);
+	clear();
+	refresh();
+	
+	if( (selectPath > 0 ) && (selectPath <= directoryNames.size() ) ) {
+		ProgramGui ('X',true, {" "," SELECTED PATH IS: "," ", directoryNames[selectPath - 1]," ", " WAIT FOR REDIRECTION"} );
+	    	sleep(1);
+		pathToShow = pathToShow/directoryNames[selectPath - 1];
+		externalDictionary(pathToShow);
+	}
+	
+	if(selectPath == navigateUp) {
+		fs::path parentPath = pathToShow.parent_path();		
+		externalDictionary(parentPath);
+	}
+	
+	if(selectPath == exitProgram) {
+		return;
+	}		
 }
     
 
@@ -77,7 +102,7 @@ void selectSourceMenu() {
 		case '1':
 			break;
 		case '2':
-			externalDictionary();
+			externalDictionary("/");
 			break;
 		default:
 			selectSourceMenu();					// 

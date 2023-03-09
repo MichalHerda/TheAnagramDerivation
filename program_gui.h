@@ -16,9 +16,7 @@ using namespace std;
 class ProgramGui {
 
 	public:
-	
-	//ProgramGui(char guiSign, vector<string> guiText) ;								
-	
+								
 	ProgramGui(char guiSign, bool isEmptyLineBehind, vector<string> guiText);
 	
 	

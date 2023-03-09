@@ -47,32 +47,7 @@ void ProgramGui::createLeftOrRightBorder(char guiSign) {
 		cout << guiSign;
 	}
 }	
-/*
-ProgramGui::ProgramGui(char guiSign, vector<string> guiText) {
-	
-	cout << "\n";
-	ProgramGui::createBorderFrame(guiSign);
-	ProgramGui::createEmptyLine(guiSign);	
-	
-	for (int i = 0; i < guiText.size(); i ++) {
-		int distanceFromFrame = ( ProgramGui::calculateColumnsNo() - ( ProgramGui::borderWidth * 2 ) - guiText[i].length() ) / 2;
-		ProgramGui::createLeftOrRightBorder(guiSign);
-		for (int i = 0; i < distanceFromFrame; i++) {
-			cout << " ";				
-		}
-		if( ( (distanceFromFrame * 2) + ( ProgramGui::borderWidth * 2 ) + ( guiText[i].length() ) ) 
-											!= ProgramGui::calculateColumnsNo() ) cout << " ";
-		cout << guiText [i];
-		for (int i = 0; i < distanceFromFrame; i++) {
-			cout << " ";
-		}
-		ProgramGui::createLeftOrRightBorder(guiSign);			
-		ProgramGui::createEmptyLine(guiSign);			
-	}		
-	ProgramGui::createBorderFrame(guiSign);		
-	cout << "\n";												
-}
-*/
+
 ProgramGui::ProgramGui ( char guiSign, bool isEmptyLineBehind, vector<string> guiText ) {
 	cout << "\n";
 	ProgramGui::createBorderFrame(guiSign);
