@@ -1,6 +1,6 @@
-//--------------------------------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------ANAGRAM DERIVATION--------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------ANAGRAM DERIVATION---------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------
 #include <iostream>
 #include <ncurses.h>									// for interactive console menu
 #include <unistd.h>									// for calculating screen width/height
@@ -13,7 +13,7 @@
 
 using namespace std;
 namespace fs = std::filesystem;
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
 void externalDictionary(fs::path pathToShow) {
 
 	clear();
@@ -41,13 +41,13 @@ void externalDictionary(fs::path pathToShow) {
     	directoryNamesNumbered.push_back(to_string(exitProgram) + ". EXIT PROGRAM");
     	
     	int selectPath;	
-	ProgramGui ('#',false,{directoryNamesNumbered});
+	ProgramGui (2, 4, '#',false,{directoryNamesNumbered});
 	scanf("%d", &selectPath);
 	clear();
 	refresh();
 	
 	if( (selectPath > 0 ) && (selectPath <= directoryNames.size() ) ) {
-		ProgramGui ('X',true, {" "," SELECTED PATH IS: "," ", directoryNames[selectPath - 1]," ", " WAIT FOR REDIRECTION"} );
+		ProgramGui (2, 5, 'X',true, {" "," SELECTED PATH IS: "," ", directoryNames[selectPath - 1]," ", " WAIT FOR REDIRECTION"} );
 	    	sleep(1);
 		pathToShow = pathToShow/directoryNames[selectPath - 1];
 		externalDictionary(pathToShow);
@@ -62,12 +62,11 @@ void externalDictionary(fs::path pathToShow) {
 		return;
 	}		
 }
-    
-
+//-----------------------------------------------------------------------------------------------------------------------------------------    
 void titlePage() {
 
 	ProgramGui titlePage 
-		   ('$',true,{" ",
+		   (1, 1, '$', true, {" ",
 		    "Welcome to", "THE ANAGRAM DERIVATION", " ",
 		    "An anagram derivation is a N-letter word derived from a N-1 letter word",
 		    "by adding a letter and rearranging.",	
@@ -78,20 +77,20 @@ void titlePage() {
 		    "PRESS C - CONTINUE",
 		    "PRESS Q - QUIT ", " ", " ",});
 }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
 void exitPage() {
 	clear();
 	refresh();
 	printw(" ");
-	ProgramGui exitPage ('%',true,{" "," "," "," "," ","PROGRAM EXITED"," "," "," "," "," "});
-	sleep(5);
+	ProgramGui exitPage (6, 6, '%',true,{" "," "," "," "," ","PROGRAM EXITED"," "," "," "," "," "});
+	sleep(3);
 }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
 void selectSourceMenu() {
 	clear();
 	refresh();
 	printw(" ");
-	ProgramGui exitPage ('X',true,{" "," "," ","SELECT SOURCE DICTIONARY:","PRESS 1 - INTERNAL DICTIONARY",
+	ProgramGui exitPage (4, 2, 'X',true,{" "," "," ","SELECT SOURCE DICTIONARY:","PRESS 1 - INTERNAL DICTIONARY",
 			      "PRESS 2 - EXTERNAL DICTIONARY "," "," "," "});
 	
 	SELECT:
@@ -109,7 +108,7 @@ void selectSourceMenu() {
 	}
 	
 }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
 fstream selectSourceFile(string& filename) {
 	fstream file(filename, std::ios::in | std::ios::out);
     if (!file.is_open()) {
@@ -117,7 +116,8 @@ fstream selectSourceFile(string& filename) {
     }
     return file;
 }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------
 int main() {
 		
 initscr();									// ncurses initialization
@@ -155,3 +155,4 @@ guiThread.join(); 								// waiting for thread ending
 	return 0;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------

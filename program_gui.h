@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -17,24 +18,26 @@ class ProgramGui {
 
 	public:
 								
-	ProgramGui(char guiSign, bool isEmptyLineBehind, vector<string> guiText);
+		ProgramGui (int upAndDownBorderWidth, int leftAndRightBorderWidth, char guiSign, 
+			    bool isEmptyLineBetween, vector<string> guiText);
 	
 	
-	private: 
+	private: 		
 	
-	static int borderWidth;
-	
-	int calculateColumnsNo() ;
-	
-	int calculateRowsNo() ;
-	
-	void createBorderFrame(char guiSign) ;
+		int calculateColumnsNo() ;
 		
-	void createEmptyLine(char guiSign) ;
-	
-	void createLeftOrRightBorder(char guiSign) ;
+		int calculateRowsNo() ;
+		
+		void createUpAndDownBorder(char guiSign, int upAndDownBorderWidth) ;
+			
+		void createEmptyLine(char guiSign, int leftAndRightBorderWidth) ;
+		
+		void createLeftAndRightBorder(char guiSign, int leftAndRightBorderWidth) ;
+		
+		int calculatePagesNo(int upAndDownBorderWidth, bool isEmptyLineBetween, vector<string> guiText) ;
 	
 };
+
 #endif // PROGRAM_GUI_H
 //------------------------------------------------------------------------------------------------------------------------------------
 
